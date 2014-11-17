@@ -1,8 +1,63 @@
 "
-" Michael Stock's vimrc
+" Pierce Frawley's vimrc
 "
 " github.com/mikeastock/dotfiles
 "
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Avoid a name conflict with L9
+Plugin 'user/L9', {'name': 'newL9'}
+
+" Install Gruvbox
+Bundle 'morhetz/gruvbox'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just
+" :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to
+" auto-approve removal
+
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 "Colorscheme settings
 let g:gruvbox_italic=0
@@ -13,7 +68,6 @@ let g:gruvbox_italic=0
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
-
 
 "============================
 " BASIC EDITING CONFIGURATION
@@ -133,14 +187,15 @@ map <Leader>as :CtrlP spec/<CR>
 map <Leader>ss :CtrlP spec2/<CR>
 map <Leader>al :CtrlP lib<CR>
 map <Leader>ap :CtrlP config<CR>
+map <Leader>c  :bp\|bd #<CR>
 map <Leader>af :CtrlP features<CR>
 map <Leader>ad :CtrlP docs<CR>
 map <Leader>ag :topleft 20 :split Gemfile<CR>
 map <Leader>g :CtrlPMixed<CR>
 map <Leader>b :CtrlPBuffer<CR>
 map <Leader>p Obinding.pry<C-c>
-map <Leader>vi :tabe ~/.nvimrc<CR>
-map <Leader>vs :source ~/.nvimrc<CR>
+map <Leader>vi :tabe ~/.vimrc<CR>
+map <Leader>vs :source ~/.vimrc<CR>
 
 "OTHER
 function! MapCR()
