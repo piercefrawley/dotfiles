@@ -1229,3 +1229,8 @@ sudo gem install ffi -v '1.9.3'
 bundle install
 exiut
 exit
+declare -A folders=(["~/procore/app/assets/javascripts/react_components/table"]="TableComponent" ["~/procore/app/assets/javascripts/react_components/sidebar"]="Sidebar" ["~/procore/app/assets/javascripts/react_components/procore_components"]="ProcoreComponents" ["~/procore/engines/checklist/app/assets/javascripts/checklist"]="Checklists" )
+$folders
+${!folders[@]}
+for I in ${!folders[@]}; ;
+exit

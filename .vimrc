@@ -1,63 +1,8 @@
 "
-" Pierce Frawley's vimrc
+" Michael Stock's vimrc
 "
 " github.com/mikeastock/dotfiles
 "
-
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-
-" Avoid a name conflict with L9
-Plugin 'user/L9', {'name': 'newL9'}
-
-" Install Gruvbox
-Bundle 'morhetz/gruvbox'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 "Colorscheme settings
 let g:gruvbox_italic=0
@@ -68,6 +13,7 @@ let g:gruvbox_italic=0
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
+
 
 "============================
 " BASIC EDITING CONFIGURATION
@@ -123,14 +69,32 @@ let g:vroom_cucumber_path = 'cucumber'
 let g:rspec_command = "compiler rspec | set makeprg=zeus | Make rspec2 {spec}"
 map <Leader>t :call RunCurrentSpecFile()<CR>
 
-if executable('ag')
-    " Use Ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
-
-    " Use ag in CtrlP
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-    let g:ctrlp_use_caching = 0
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+        \ --ignore .git
+        \ --ignore .svn
+        \ --ignore .hg
+        \ --ignore .DS_Store
+        \ --ignore node_modules
+        \ -g ""'
 endif
+
+" PyMatcher for CtrlP
+if !has('python')
+  echo 'In order to use pymatcher plugin, you need +python compiled vim'
+else
+  let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
+
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20'
+
+" Do not clear filenames cache, to improve CtrlP startup
+" You can manualy clear it by <F5>
+" let g:ctrlp_clear_cache_on_exit = 0
+
+" Set no file limit, we are building a big project
+let g:ctrlp_max_files = 0
 
 "==================
 "SETTINGS BY OTHERS
@@ -187,7 +151,7 @@ map <Leader>as :CtrlP spec/<CR>
 map <Leader>ss :CtrlP spec2/<CR>
 map <Leader>al :CtrlP lib<CR>
 map <Leader>ap :CtrlP config<CR>
-map <Leader>c  :bp\|bd #<CR>
+map <Leader>c  :bp\|bd #<CR> 
 map <Leader>af :CtrlP features<CR>
 map <Leader>ad :CtrlP docs<CR>
 map <Leader>ag :topleft 20 :split Gemfile<CR>
