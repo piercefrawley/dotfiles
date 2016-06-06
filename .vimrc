@@ -1,7 +1,7 @@
 "
-" Michael Stock's vimrc
+" Pierce Frawley's vimrc
 "
-" github.com/mikeastock/dotfiles
+" github.com/piercefrawley/dotfiles
 "
 
 "Colorscheme settings
